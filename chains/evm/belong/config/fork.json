@@ -1,0 +1,5 @@
+{
+  "rpcAlias": "mainnet",
+  "blockNumber": 0,
+  "notes": "Replace blockNumber with the pre-exploit height before writing PoCs."
+}

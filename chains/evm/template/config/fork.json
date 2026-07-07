@@ -1,0 +1,5 @@
+{
+  "rpcAlias": "mainnet",
+  "blockNumber": 0,
+  "notes": "Set blockNumber to the pre-exploit state you want to replay."
+}

@@ -9,8 +9,8 @@ env:
   FOUNDRY_PROFILE: ci
 
 jobs:
-  check:
-    name: Foundry project
+  evm-check:
+    name: EVM case checks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,17 +24,38 @@ jobs:
         run: |
           forge --version
 
-      - name: Run Forge fmt
+      - name: Run Forge fmt for Belong
         run: |
+          cd chains/evm/belong
           forge fmt --check
-        id: fmt
+        id: fmt-belong
 
-      - name: Run Forge build
+      - name: Run Forge fmt for UPS
         run: |
+          cd chains/evm/ups
+          forge fmt --check
+        id: fmt-ups
+
+      - name: Run Forge build for Belong
+        run: |
+          cd chains/evm/belong
           forge build --sizes
-        id: build
+        id: build-belong
 
-      - name: Run Forge tests
+      - name: Run Forge build for UPS
         run: |
+          cd chains/evm/ups
+          forge build --sizes
+        id: build-ups
+
+      - name: Run Forge tests for Belong
+        run: |
+          cd chains/evm/belong
           forge test -vvv
-        id: test
+        id: test-belong
+
+      - name: Run Forge tests for UPS
+        run: |
+          cd chains/evm/ups
+          forge test -vvv
+        id: test-ups
