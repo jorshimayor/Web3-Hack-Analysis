@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 350" width="720" height="350" role="img" aria-labelledby="t">
+<title id="t">Internal accounting defence: the 10,000 donation is ignored, the 9,000 deposit mints 9,000 × 10^18 shares and the attacker redeems 1 wei</title>
+<rect width="720" height="350" rx="12" fill="#fcfcfb"/>
+<text x="24" y="34" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#0b0b0b" xml:space="preserve">Defence 3: internal accounting</text>
+<text x="24" y="66" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Vault state after the 1 wei deposit and the 10,000 donation</text>
+<rect x="24" y="80" width="141" height="34" rx="6" fill="#fcfcfb" fill-opacity="1" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="94.45" y="102" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="normal" fill="#52514e" xml:space="preserve">totalSupply = 1</text>
+<rect x="171" y="80" width="205" height="34" rx="6" fill="#fcfcfb" fill-opacity="1" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="273.59000000000003" y="102" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="normal" fill="#52514e" xml:space="preserve">accountedAssets = 1 wei</text>
+<rect x="382" y="80" width="246" height="34" rx="6" fill="#fcfcfb" fill-opacity="1" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="505.12" y="102" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="normal" fill="#52514e" xml:space="preserve">balanceOf = 10,000 (ignored)</text>
+<text x="24" y="146" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Victim deposits</text>
+<text x="24" y="176" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="normal" fill="#0b0b0b" xml:space="preserve">9,000 × (1 + 1) / (1 wei + 1) = 9,000 × 10^18</text>
+<text x="24" y="198" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="normal" fill="#eb6834" xml:space="preserve">→ 9,000 × 10^18 shares. Victim owns everything they paid for.</text>
+<text x="24" y="236" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Attacker redeems</text>
+<text x="24" y="260" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="normal" fill="#0b0b0b" xml:space="preserve">1 share × 9,000 / (9,000 × 10^18) = 1 wei</text>
+<text x="24" y="290" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">The donation never enters the formula.</text>
+<text x="24" y="308" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">Attacker redeems 1 wei and loses the whole 10,000. Victim loses nothing.</text>
+<text x="24" y="326" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Foundry 1.5.1, OpenZeppelin Contracts 5.4.0, from the erc4626-inflation-lab test suite.</text>
+</svg>

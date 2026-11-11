@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 418" width="720" height="418" role="img" aria-labelledby="t">
+<title id="t">A 15,000 token deposit into the inflated vault computes 1.4999 shares, rounds down to 1, and is worth 12,500: the victim loses 2,500 and the attacker gains 2,500</title>
+<rect width="720" height="418" rx="12" fill="#fcfcfb"/>
+<text x="24" y="34" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#0b0b0b" xml:space="preserve">The 15,000 token deposit: where the 2,500 goes</text>
+<text x="24" y="66" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" font-weight="normal" fill="#0b0b0b" xml:space="preserve">After steps 1 and 2</text>
+<text x="24" y="84" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#52514e" xml:space="preserve">attacker has 1 share, vault holds 10,000 tokens</text>
+<rect x="24" y="98" width="141" height="34" rx="6" fill="#fcfcfb" fill-opacity="1" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="94.45" y="120" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="normal" fill="#52514e" xml:space="preserve">totalSupply = 1</text>
+<rect x="171" y="98" width="181" height="34" rx="6" fill="#fcfcfb" fill-opacity="1" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="261.5" y="120" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="normal" fill="#52514e" xml:space="preserve">totalAssets = 10,000</text>
+<text x="24" y="162" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Step 3: victim deposits 15,000</text>
+<text x="24" y="180" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#52514e" xml:space="preserve">shares = assets × totalSupply / totalAssets</text>
+<text x="24" y="196" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" font-weight="normal" fill="#0b0b0b" xml:space="preserve">15,000 × 1 / 10,000  =  1.4999</text>
+<text x="324" y="196" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="normal" fill="#52514e" xml:space="preserve">→ rounds down to</text>
+<rect x="454" y="174" width="81" height="34" rx="6" fill="#fdeee8" fill-opacity="1" stroke="#eb6834" stroke-width="1.5"/>
+<text x="494.38" y="196" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="normal" fill="#eb6834" xml:space="preserve">1 share</text>
+<text x="24" y="222" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">The 0.4999 of a share the victim paid for is never minted.</text>
+<text x="24" y="266" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" font-weight="normal" fill="#0b0b0b" xml:space="preserve">After step 3</text>
+<text x="24" y="284" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#52514e" xml:space="preserve">2 shares, 25,000 tokens, so 1 share = 12,500</text>
+<text x="178" y="306" text-anchor="end" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Attacker, 1 share</text>
+<rect x="190" y="290" width="250" height="22" rx="0" fill="#2a78d6" fill-opacity="1"/>
+<rect x="436" y="290" width="4" height="22" rx="2" fill="#2a78d6" fill-opacity="1"/>
+<text x="448.0" y="306" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" xml:space="preserve">worth 12,500</text>
+<text x="560.0" y="306" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">paid 10,001</text>
+<text x="178" y="338" text-anchor="end" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Victim, 1 share</text>
+<rect x="190" y="322" width="250" height="22" rx="0" fill="#eb6834" fill-opacity="1"/>
+<rect x="436" y="322" width="4" height="22" rx="2" fill="#eb6834" fill-opacity="1"/>
+<text x="448.0" y="338" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" xml:space="preserve">worth 12,500</text>
+<text x="560.0" y="338" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">paid 15,000</text>
+<line x1="190" y1="286" x2="190" y2="354" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="24" y="376" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">Victim paid 15,000, holds 12,500. Attacker paid 10,000 and 1 wei, holds 12,500. Rounding moved 2,500.</text>
+<text x="24" y="394" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Foundry 1.5.1, OpenZeppelin Contracts 5.4.0, from the erc4626-inflation-lab test suite.</text>
+</svg>

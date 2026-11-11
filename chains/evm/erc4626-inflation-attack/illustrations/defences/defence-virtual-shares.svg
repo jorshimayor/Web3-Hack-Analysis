@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 350" width="720" height="350" role="img" aria-labelledby="t">
+<title id="t">Virtual shares defence with offset 6: the 9,000 deposit mints 1,799,999 shares and the attacker redeems about 5,000 of the 10,000 donated</title>
+<rect width="720" height="350" rx="12" fill="#fcfcfb"/>
+<text x="24" y="34" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#0b0b0b" xml:space="preserve">Defence 2: virtual shares, offset 6</text>
+<text x="24" y="66" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Vault state after the 1 wei deposit and the 10,000 donation</text>
+<rect x="24" y="80" width="205" height="34" rx="6" fill="#fcfcfb" fill-opacity="1" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="126.69" y="102" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="normal" fill="#52514e" xml:space="preserve">totalSupply = 1,000,000</text>
+<rect x="235" y="80" width="181" height="34" rx="6" fill="#fcfcfb" fill-opacity="1" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="325.98" y="102" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="normal" fill="#52514e" xml:space="preserve">totalAssets = 10,000</text>
+<rect x="423" y="80" width="189" height="34" rx="6" fill="#fcfcfb" fill-opacity="1" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="517.21" y="102" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="normal" fill="#52514e" xml:space="preserve">+10^6 virtual, +1 wei</text>
+<text x="24" y="146" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Victim deposits</text>
+<text x="24" y="176" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="normal" fill="#0b0b0b" xml:space="preserve">9,000 × (1,000,000 + 1,000,000) / (10,000 + 1 wei) ≈ 1,800,000</text>
+<text x="24" y="198" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="normal" fill="#eb6834" xml:space="preserve">→ 1,799,999 shares. Victim owns 1.8M of 2.8M real shares.</text>
+<text x="24" y="236" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Attacker redeems</text>
+<text x="24" y="260" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="normal" fill="#0b0b0b" xml:space="preserve">1,000,000 × 19,000 / (2,800,000 + 1,000,000) ≈ 5,000 tokens</text>
+<text x="24" y="290" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">The attacker's 1 wei bought 1,000,000 shares, and 1,000,000 more are virtual.</text>
+<text x="24" y="308" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">Attacker loses 5,000 of the 10,000 donated. Victim loses 0.003 tokens.</text>
+<text x="24" y="326" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Foundry 1.5.1, OpenZeppelin Contracts 5.4.0, from the erc4626-inflation-lab test suite.</text>
+</svg>
