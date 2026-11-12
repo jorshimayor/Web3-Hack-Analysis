@@ -28,24 +28,17 @@ contract UPS is ERC20Burnable, Ownable {
         sellRate = 5;
         if (block.chainid == 56) {
             usdtAddress = 0x55d398326f99059fF775485246999027B3197955;
-            swapRouter = ISwapRouter(
-                0x10ED43C718714eb63d5aA57B78B54704E256024E
-            );
+            swapRouter = ISwapRouter(0x10ED43C718714eb63d5aA57B78B54704E256024E);
         } else {
             usdtAddress = 0x311bb5a90eA517529F6CE7e2aE19E9390ce35a0C;
-            swapRouter = ISwapRouter(
-                0xD99D1c33F9fC3444f8101754aBC46c52416550D1
-            );
+            swapRouter = ISwapRouter(0xD99D1c33F9fC3444f8101754aBC46c52416550D1);
         }
-        pairAddress = ISwapFactory(swapRouter.factory()).createPair(
-            usdtAddress,
-            address(this)
-        );
+        pairAddress = ISwapFactory(swapRouter.factory()).createPair(usdtAddress, address(this));
         whiteMap[_msgSender()] = true;
         _mint(_msgSender(), 420 * 1e8 ether);
     }
 
-    function _swapBurn(uint amount) private lockTheSwap {
+    function _swapBurn(uint256 amount) private lockTheSwap {
         super._burn(pairAddress, amount);
         ISwapPair(pairAddress).sync();
     }
@@ -68,8 +61,7 @@ contract UPS is ERC20Burnable, Ownable {
         address[] memory path = new address[](2);
         path[0] = address(this);
         path[1] = usdtAddress;
-        (uint256 reserve1, uint256 reserve2, ) = ISwapPair(pairAddress)
-            .getReserves();
+        (uint256 reserve1, uint256 reserve2,) = ISwapPair(pairAddress).getReserves();
         if (reserve1 == 0 || reserve2 == 0) {
             price = 0;
         } else {
@@ -77,10 +69,7 @@ contract UPS is ERC20Burnable, Ownable {
         }
     }
 
-    function transfer(
-        address to,
-        uint256 value
-    ) public virtual override returns (bool) {
+    function transfer(address to, uint256 value) public virtual override returns (bool) {
         if (to == address(0)) {
             _burn(_msgSender(), value);
             return true;
@@ -90,17 +79,8 @@ contract UPS is ERC20Burnable, Ownable {
         }
     }
 
-    function _update(
-        address from,
-        address to,
-        uint256 amount
-    ) internal virtual override {
-        if (
-            inSwapAndLiquify ||
-            whiteMap[from] ||
-            whiteMap[to] ||
-            !(from == pairAddress || to == pairAddress)
-        ) {
+    function _update(address from, address to, uint256 amount) internal virtual override {
+        if (inSwapAndLiquify || whiteMap[from] || whiteMap[to] || !(from == pairAddress || to == pairAddress)) {
             super._update(from, to, amount);
         } else if (from == pairAddress) {
             revert ERC20InvalidSender(from);

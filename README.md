@@ -17,6 +17,7 @@ web3-hack-analysis-template/
 │   ├── evm/
 │   │   ├── template/
 │   │   ├── belong/
+│   │   ├── erc4626-inflation-attack/
 │   │   └── ups/
 │   ├── solana/
 │   ├── aptos/
@@ -38,6 +39,7 @@ web3-hack-analysis-template/
 - `chains/evm/template/`: base Foundry starter for a new EVM incident.
 - `chains/evm/belong/`: empty starter for the next target.
 - `chains/evm/ups/`: seeded from the existing UtopiaSphere analysis.
+- `chains/evm/erc4626-inflation-attack/`: the ERC-4626 inflation attack, three defences, and mock replications of the Yearn, Thetanuts and Lazy Summer incident classes. No fork needed.
 
 ## Non-EVM Roadmap
 

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 304" width="700" height="304" role="img" aria-labelledby="t">
+<title id="t">Foundry results for the ERC-4626 inflation attack against five vaults: naive loses 100%, OpenZeppelin offset 0 loses 29.6%, dead shares 0.05%, offset 6 and internal accounting about 0%</title>
+<rect width="700" height="304" rx="12" fill="#fcfcfb"/>
+<text x="24" y="34" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#0b0b0b" xml:space="preserve">Victim's loss on a 9,000 token deposit, by vault</text>
+<text x="188" y="80" text-anchor="end" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Naive vault</text>
+<rect x="200" y="64" width="273" height="22" rx="0" fill="#eb6834" fill-opacity="1"/>
+<rect x="469" y="64" width="4" height="22" rx="2" fill="#eb6834" fill-opacity="1"/>
+<text x="480.72727272727275" y="80" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" xml:space="preserve">100 %</text>
+<text x="523.7272727272727" y="80" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">  attacker +9,000</text>
+<text x="188" y="112" text-anchor="end" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#0b0b0b" xml:space="preserve">OpenZeppelin, offset 0</text>
+<rect x="200" y="96" width="81" height="22" rx="0" fill="#2a78d6" fill-opacity="1"/>
+<rect x="277" y="96" width="4" height="22" rx="2" fill="#2a78d6" fill-opacity="1"/>
+<text x="288.8090909090909" y="112" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" xml:space="preserve">29.63 %</text>
+<text x="349.0090909090909" y="112" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">  attacker −3,667</text>
+<text x="188" y="144" text-anchor="end" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Dead shares (1,000)</text>
+<rect x="200" y="128" width="1" height="22" rx="0" fill="#2a78d6" fill-opacity="1"/>
+<rect x="196" y="128" width="4" height="22" rx="2" fill="#2a78d6" fill-opacity="1"/>
+<text x="208.14345454545455" y="144" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" xml:space="preserve">0.0526 %</text>
+<text x="276.94345454545453" y="144" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">  attacker −9,990</text>
+<text x="188" y="176" text-anchor="end" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#0b0b0b" xml:space="preserve">OpenZeppelin, offset 6</text>
+<rect x="200" y="160" width="1" height="22" rx="0" fill="#2a78d6" fill-opacity="1"/>
+<rect x="196" y="160" width="4" height="22" rx="2" fill="#2a78d6" fill-opacity="1"/>
+<text x="208.0" y="176" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" xml:space="preserve">0 %</text>
+<text x="233.8" y="176" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">  attacker −5,000 (victim −0.003 tokens)</text>
+<text x="188" y="208" text-anchor="end" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Internal accounting</text>
+<rect x="200" y="192" width="1" height="22" rx="0" fill="#2a78d6" fill-opacity="1"/>
+<rect x="196" y="192" width="4" height="22" rx="2" fill="#2a78d6" fill-opacity="1"/>
+<text x="208.0" y="208" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" xml:space="preserve">0 %</text>
+<text x="233.8" y="208" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">  attacker −10,000</text>
+<line x1="200" y1="60" x2="200" y2="224" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="24" y="246" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">Only the naive vault pays the attacker. OpenZeppelin's default offset still costs the victim 29.6%.</text>
+<text x="24" y="264" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Attack: 1 wei deposit, 10,000 token donation, 9,000 token victim deposit. Attacker figures are profit in tokens.</text>
+<text x="24" y="280" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Foundry 1.9.0, OpenZeppelin Contracts 5.4.0, Web3-Hack-Analysis test suite.</text>
+</svg>

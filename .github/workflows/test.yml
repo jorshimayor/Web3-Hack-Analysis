@@ -7,18 +7,26 @@ on:
 
 env:
   FOUNDRY_PROFILE: ci
+  # Fork tests run against the latest block, so non-archive nodes are enough.
+  # Set ETH_RPC_URL / BSC_RPC_URL repository secrets to use your own provider;
+  # otherwise CI falls back to free public endpoints.
+  ETH_RPC_URL: ${{ secrets.ETH_RPC_URL || 'https://ethereum-rpc.publicnode.com' }}
+  BSC_RPC_URL: ${{ secrets.BSC_RPC_URL || 'https://bsc-rpc.publicnode.com' }}
 
 jobs:
   evm-check:
     name: EVM case checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           submodules: recursive
 
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
+        with:
+          # Pinned so formatter and cheatcode changes in new releases can't break CI.
+          version: v1.9.0
 
       - name: Show Forge version
         run: |
@@ -36,6 +44,12 @@ jobs:
           forge fmt --check
         id: fmt-ups
 
+      - name: Run Forge fmt for ERC-4626 inflation attack
+        run: |
+          cd chains/evm/erc4626-inflation-attack
+          forge fmt --check
+        id: fmt-erc4626
+
       - name: Run Forge build for Belong
         run: |
           cd chains/evm/belong
@@ -47,6 +61,12 @@ jobs:
           cd chains/evm/ups
           forge build --sizes
         id: build-ups
+
+      - name: Run Forge tests for ERC-4626 inflation attack
+        run: |
+          cd chains/evm/erc4626-inflation-attack
+          forge test -vvv
+        id: test-erc4626
 
       - name: Run Forge tests for Belong
         run: |

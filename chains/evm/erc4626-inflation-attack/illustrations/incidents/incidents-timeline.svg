@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 332" width="720" height="332" role="img" aria-labelledby="t">
+<title id="t">Timeline of vault share-price incidents from Yearn yUSDT in April 2023 ($11.6M) to Summer.fi in July 2026 ($6M), grouped by first depositor attack and other ratio manipulation</title>
+<rect width="720" height="332" rx="12" fill="#fcfcfb"/>
+<text x="24" y="34" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#0b0b0b" xml:space="preserve">Share-price incidents, 2023 to 2026</text>
+<line x1="70" y1="150" x2="630" y2="150" stroke="#d9d8d3" stroke-width="2"/>
+<circle cx="70.0" cy="150" r="7" fill="#eb6834" fill-opacity="1"/>
+<line x1="70" y1="142" x2="70" y2="108" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="70.0" y="90" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Apr 2023</text>
+<text x="70.0" y="106" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" xml:space="preserve">Yearn yUSDT</text>
+<text x="70.0" y="122" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" font-weight="600" fill="#eb6834" xml:space="preserve">$11.6M</text>
+<text x="70.0" y="138" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#52514e" xml:space="preserve">misconfiguration</text>
+<circle cx="182.0" cy="150" r="7" fill="#2a78d6" fill-opacity="1"/>
+<line x1="182" y1="158" x2="182" y2="174" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="182.0" y="180" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Oct 2025</text>
+<text x="182.0" y="196" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" xml:space="preserve">Belong Staking</text>
+<text x="182.0" y="212" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" font-weight="600" fill="#2a78d6" xml:space="preserve">caught in audit</text>
+<text x="182.0" y="228" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#52514e" xml:space="preserve">classic attack</text>
+<circle cx="294.0" cy="150" r="7" fill="#eb6834" fill-opacity="1"/>
+<line x1="294" y1="142" x2="294" y2="108" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="294.0" y="90" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Dec 2025</text>
+<text x="294.0" y="106" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" xml:space="preserve">Yearn yTUSD</text>
+<text x="294.0" y="122" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" font-weight="600" fill="#eb6834" xml:space="preserve">$293K</text>
+<text x="294.0" y="138" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#52514e" xml:space="preserve">misconfiguration</text>
+<circle cx="406.0" cy="150" r="7" fill="#2a78d6" fill-opacity="1"/>
+<line x1="406" y1="158" x2="406" y2="174" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="406.0" y="180" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Apr 2026</text>
+<text x="406.0" y="196" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" xml:space="preserve">Thetanuts new vault</text>
+<text x="406.0" y="212" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" font-weight="600" fill="#2a78d6" xml:space="preserve">$50K</text>
+<text x="406.0" y="228" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#52514e" xml:space="preserve">classic attack</text>
+<circle cx="518.0" cy="150" r="7" fill="#eb6834" fill-opacity="1"/>
+<line x1="518" y1="142" x2="518" y2="108" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="518.0" y="90" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Jun 2026</text>
+<text x="518.0" y="106" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" xml:space="preserve">Thetanuts legacy</text>
+<text x="518.0" y="122" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" font-weight="600" fill="#eb6834" xml:space="preserve">$105K net</text>
+<text x="518.0" y="138" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#52514e" xml:space="preserve">rounding at ~0 supply</text>
+<circle cx="630.0" cy="150" r="7" fill="#eb6834" fill-opacity="1"/>
+<line x1="630" y1="158" x2="630" y2="174" stroke="#d9d8d3" stroke-width="1.5"/>
+<text x="630.0" y="180" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Jul 2026</text>
+<text x="630.0" y="196" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" xml:space="preserve">Summer.fi</text>
+<text x="630.0" y="212" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" font-weight="600" fill="#eb6834" xml:space="preserve">$6.04M</text>
+<text x="630.0" y="228" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="normal" fill="#52514e" xml:space="preserve">stale strategy</text>
+<rect x="24" y="250" width="12" height="12" rx="2" fill="#2a78d6" fill-opacity="1"/>
+<text x="42" y="261" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">first depositor attack on an empty vault</text>
+<rect x="330" y="250" width="12" height="12" rx="2" fill="#eb6834" fill-opacity="1"/>
+<text x="348" y="261" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">same ratio moved another way</text>
+<text x="24" y="290" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">Two textbook cases in three years. The expensive ones moved the same ratio from the configuration side.</text>
+<text x="24" y="308" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Amounts as reported by PeckShield, SlowMist, DarkNavy, banteg and the Summer.fi post-mortem.</text>
+</svg>

@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inflation Attack Simulator</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a lab bench. Controls on the left, the vault's four-step ledger and the deposit sweep on the right; one column on phones. */
+:root {
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --ink-3: #8a8984;
+  --hairline: #d9d8d3;
+  --fill: #f1f1ee;
+  --baseline: #c3c2b7;
+  --blue: #2a78d6;
+  --orange: #eb6834;
+  --blue-tint: #eef3fb;
+  --orange-tint: #fdeee8;
+  --font-ui: "Inter", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --ink-3: #8a8984; --hairline: #3a3a38;
+    --fill: #262624; --baseline: #6b6a66; --blue: #3987e5; --orange: #d95926;
+    --blue-tint: #1c2633; --orange-tint: #33221b; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --ink-3: #8a8984; --hairline: #3a3a38;
+  --fill: #262624; --baseline: #6b6a66; --blue: #3987e5; --orange: #d95926;
+  --blue-tint: #1c2633; --orange-tint: #33221b; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  background: var(--surface); color: var(--ink); font-family: var(--font-ui); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 40px;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 28px; }
+header { display: grid; gap: 6px; max-width: 70ch; }
+h1 { font-size: 26px; font-weight: 600; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+.lede { color: var(--ink-2); margin: 0; }
+.mono { font-family: var(--font-mono); }
+.bench { display: grid; grid-template-columns: minmax(260px, 320px) minmax(0, 1fr); gap: 32px; align-items: start; }
+@media (max-width: 820px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+
+/* Controls */
+.controls { display: grid; gap: 22px; position: sticky; top: calc(16px + env(safe-area-inset-top, 0px)); }
+@media (max-width: 820px) { .controls { position: static; } }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 8px; min-width: 0; }
+legend, .label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2); padding: 0; margin-bottom: 4px; }
+.vaults { display: grid; gap: 6px; }
+.vault-opt { display: grid; grid-template-columns: 18px 1fr; gap: 10px; align-items: start; padding: 10px 12px; border: 1.5px solid var(--hairline); border-radius: 6px; cursor: pointer; }
+.vault-opt:has(input:checked) { border-color: var(--blue); background: var(--blue-tint); }
+.vault-opt input { margin: 3px 0 0; accent-color: var(--blue); }
+.vault-opt strong { font-weight: 600; font-size: 14px; display: block; }
+.vault-opt span { color: var(--ink-2); font-size: 12.5px; }
+.slider { display: grid; gap: 6px; }
+.slider-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.slider-head output { font-family: var(--font-mono); font-size: 14px; font-variant-numeric: tabular-nums; }
+input[type="range"] { width: 100%; accent-color: var(--blue); }
+.presets { display: flex; flex-wrap: wrap; gap: 6px; }
+.presets button { font: 12.5px var(--font-ui); color: var(--ink-2); background: var(--surface); border: 1.5px solid var(--hairline); border-radius: 6px; padding: 4px 9px; cursor: pointer; }
+.presets button:hover { border-color: var(--ink-3); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+/* Results */
+.results { display: grid; gap: 28px; min-width: 0; }
+.verdict { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.pill { font-size: 13px; font-weight: 600; padding: 5px 12px; border-radius: 999px; border: 1.5px solid; }
+.pill.bad { color: var(--orange); border-color: var(--orange); background: var(--orange-tint); }
+.pill.good { color: var(--blue); border-color: var(--blue); background: var(--blue-tint); }
+.pill.dos { color: var(--ink); border-color: var(--ink-3); background: var(--fill); }
+.verdict p { margin: 0; color: var(--ink-2); max-width: 62ch; }
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); border-radius: 8px; overflow: hidden; }
+@media (max-width: 560px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.tile { background: var(--surface); padding: 14px 16px; display: grid; gap: 4px; min-width: 0; }
+.tile .label { margin: 0; }
+.tile .value { font-family: var(--font-mono); font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.tile .value.bad { color: var(--orange); }
+.tile .sub { font-size: 12.5px; color: var(--ink-3); }
+
+h2 { font-size: 16px; font-weight: 600; margin: 0 0 4px; }
+.section-note { margin: 0 0 14px; color: var(--ink-2); font-size: 13.5px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12.5px; color: var(--ink-2); margin-bottom: 12px; }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 6px; }
+.legend i.line { height: 3px; width: 16px; vertical-align: 3px; border-radius: 2px; }
+
+/* Ledger */
+.ledger { display: grid; gap: 4px; }
+.step { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-top: 1px solid var(--hairline); }
+.step:first-child { border-top: 0; }
+.num { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 12.5px; font-weight: 600; color: var(--surface); background: var(--blue); }
+.num.alert { background: var(--orange); }
+.step-body { display: grid; gap: 6px; min-width: 0; }
+.step-title { font-weight: 600; font-size: 14.5px; }
+.formula { font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); overflow-x: auto; white-space: nowrap; }
+.formula b { color: var(--ink); font-weight: 600; }
+.formula b.bad { color: var(--orange); }
+.bar-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+.bar { display: flex; gap: 2px; height: 22px; min-width: 0; }
+.seg { height: 100%; border-radius: 0; min-width: 3px; transition: flex-basis .25s ease; }
+.seg:last-child { border-radius: 0 4px 4px 0; }
+.seg.attacker { background: var(--orange); }
+.seg.victim { background: var(--blue); }
+.seg.seed { background: var(--baseline); }
+.bar-value { font-family: var(--font-mono); font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.owners { font-size: 12.5px; color: var(--ink-2); }
+
+/* Sweep chart */
+.chart-box { position: relative; }
+#sweep { width: 100%; height: auto; display: block; overflow: visible; touch-action: none; }
+#sweep text { font-family: var(--font-ui); font-size: 11.5px; fill: var(--ink-3); }
+.tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--hairline); border-radius: 6px; padding: 6px 9px; font-size: 12.5px; white-space: nowrap; }
+.tip b { font-family: var(--font-mono); font-weight: 600; }
+footer { color: var(--ink-3); font-size: 12.5px; max-width: 80ch; display: grid; gap: 4px; }
+footer p { margin: 0; }
+footer a { color: var(--ink-2); }
+@media (prefers-reduced-motion: reduce) { .seg { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Inflation Attack Simulator</h1>
+    <p class="lede">An attacker deposits 1 wei into an empty ERC-4626 vault, sends tokens straight to it, and waits for the next depositor. Pick a vault and move the sliders to see who ends up with the money.</p>
+  </header>
+
+  <div class="bench">
+    <form class="controls" id="controls" onsubmit="return false">
+      <fieldset>
+        <legend>Vault</legend>
+        <div class="vaults">
+          <label class="vault-opt"><input type="radio" name="vault" id="v-naive" value="naive" checked><div><strong>Naive vault</strong><span>Reads the live token balance, no protection</span></div></label>
+          <label class="vault-opt"><input type="radio" name="vault" id="v-revert" value="revert"><div><strong>Revert on zero shares</strong><span>The popular check that isn't a defence</span></div></label>
+          <label class="vault-opt"><input type="radio" name="vault" id="v-dead" value="dead"><div><strong>Dead shares</strong><span>1,000 wei seed, shares burned to 0xdEaD</span></div></label>
+          <label class="vault-opt"><input type="radio" name="vault" id="v-offset" value="offset"><div><strong>OpenZeppelin virtual shares</strong><span>ERC4626 with _decimalsOffset()</span></div></label>
+          <label class="vault-opt"><input type="radio" name="vault" id="v-internal" value="internal"><div><strong>Internal accounting</strong><span>totalAssets() is a tracked counter</span></div></label>
+        </div>
+      </fieldset>
+
+      <div class="slider" id="offset-ctl">
+        <div class="slider-head"><label class="label" for="offset">Decimals offset</label><output id="offset-out" for="offset">0</output></div>
+        <input type="range" id="offset" min="0" max="9" step="1" value="0">
+      </div>
+
+      <div class="slider">
+        <div class="slider-head"><label class="label" for="donation">Attacker's donation</label><output id="donation-out" for="donation"></output></div>
+        <input type="range" id="donation" min="0" max="20000" step="100" value="10000">
+      </div>
+
+      <div class="slider">
+        <div class="slider-head"><label class="label" for="deposit">Victim's deposit</label><output id="deposit-out" for="deposit"></output></div>
+        <input type="range" id="deposit" min="100" max="40000" step="100" value="9000">
+        <div class="presets" aria-label="Deposit presets">
+          <button type="button" data-dep="9000">9,000 (tested)</button>
+          <button type="button" data-dep="15000">15,000 (tested)</button>
+          <button type="button" data-dep="5000">5,000</button>
+          <button type="button" data-dep="20100">20,100</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="results">
+      <div class="verdict" aria-live="polite">
+        <span class="pill" id="verdict-pill"></span>
+        <p id="verdict-text"></p>
+      </div>
+
+      <div class="tiles">
+        <div class="tile"><p class="label">Victim's shares</p><div class="value" id="t-shares"></div><div class="sub" id="t-shares-sub"></div></div>
+        <div class="tile"><p class="label">Victim gets back</p><div class="value" id="t-back"></div><div class="sub" id="t-back-sub"></div></div>
+        <div class="tile"><p class="label">Victim's loss</p><div class="value" id="t-loss"></div><div class="sub" id="t-loss-sub"></div></div>
+        <div class="tile"><p class="label">Attacker's profit</p><div class="value" id="t-profit"></div><div class="sub" id="t-profit-sub"></div></div>
+      </div>
+
+      <section>
+        <h2>The four steps</h2>
+        <p class="section-note">Tokens inside the vault after each step, and who owns its shares.</p>
+        <div class="legend"><span><i style="background:var(--orange)"></i>attacker's tokens</span><span><i style="background:var(--blue)"></i>victim's tokens</span><span id="seed-legend"><i style="background:var(--baseline)"></i>deployer's seed (1,000 wei)</span></div>
+        <div class="ledger" id="ledger"></div>
+      </section>
+
+      <section>
+        <h2>Every deposit size at once</h2>
+        <p class="section-note" id="sweep-note"></p>
+        <div class="legend"><span><i class="line" id="sweep-swatch"></i><span id="sweep-name"></span></span><span id="ref-legend"><i class="line" style="background:var(--baseline)"></i>naive vault, for reference</span><span><i style="background:var(--ink);border-radius:50%;width:9px;height:9px;vertical-align:0"></i>your deposit</span></div>
+        <div class="chart-box" id="chart-box">
+          <svg id="sweep" viewBox="0 0 640 270" role="img" aria-labelledby="sweep-title"><title id="sweep-title">Victim loss by deposit size</title></svg>
+          <div class="tip" id="tip" hidden></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    <p>Exact integer arithmetic (BigInt, 18-decimal token) mirroring the Solidity vaults in <a href="https://github.com/jorshimayor/Web3-Hack-Analysis/tree/main/chains/evm/erc4626-inflation-attack">Web3-Hack-Analysis</a>. At 9,000 and 15,000 tokens it reproduces the Foundry test results: 0 shares and +9,000 for the attacker on the naive vault, 900 shares with dead shares, 1,799,999 shares with offset 6.</p>
+    <p>Example contracts are unaudited and for study only. Attack sequence: attacker deposits 1 wei, donates, victim deposits, attacker redeems, victim redeems.</p>
+  </footer>
+</div>
+
+<script>
+// ---- MODEL START (kept identical to erc4626_model.py; tested in Node against the Foundry results) ----
+const E18 = 10n ** 18n;
+
+function makeVault(kind, offset) {
+  const v = { kind, offset: BigInt(offset || 0), balance: 0n, accounted: 0n, supply: 0n, revertOnZero: kind === "revert" };
+  if (kind === "dead") { v.balance = 1000n; v.accounted = 1000n; v.supply = 1000n; }
+  return v;
+}
+const ozMath = (v) => v.kind === "offset" || v.kind === "internal";
+const totalAssets = (v) => (v.kind === "internal" ? v.accounted : v.balance);
+const virtualShares = (v) => 10n ** (v.kind === "offset" ? v.offset : 0n);
+
+function toShares(v, assets) {
+  if (!ozMath(v)) return v.supply === 0n ? assets : (assets * v.supply) / totalAssets(v);
+  return (assets * (v.supply + virtualShares(v))) / (totalAssets(v) + 1n);
+}
+function toAssets(v, shares) {
+  if (!ozMath(v)) return v.supply === 0n ? shares : (shares * totalAssets(v)) / v.supply;
+  return (shares * (totalAssets(v) + 1n)) / (v.supply + virtualShares(v));
+}
+function deposit(v, assets) {
+  const shares = toShares(v, assets);
+  if (v.revertOnZero && shares === 0n) return null;
+  v.balance += assets; v.accounted += assets; v.supply += shares;
+  return shares;
+}
+function redeem(v, shares) {
+  const assets = toAssets(v, shares);
+  v.balance -= assets; v.accounted -= assets; v.supply -= shares;
+  return assets;
+}
+function runAttack(kind, offset, donationWei, depositWei) {
+  const v = makeVault(kind, offset);
+  const steps = [];
+  const aShares = deposit(v, 1n);
+  steps.push({ balance: v.balance, supply: v.supply, attackerShares: aShares, victimShares: 0n });
+  v.balance += donationWei;
+  steps.push({ balance: v.balance, supply: v.supply, attackerShares: aShares, victimShares: 0n });
+  const pre = { supply: v.supply, assets: totalAssets(v) };
+  const vShares = deposit(v, depositWei);
+  if (vShares === null) {
+    return { reverted: true, steps, pre, victimShares: 0n, victimValue: depositWei, attackerOut: 0n,
+             attackerProfit: 0n, victimLossPct: 0 };
+  }
+  steps.push({ balance: v.balance, supply: v.supply, attackerShares: aShares, victimShares: vShares });
+  const attackerOut = redeem(v, aShares);
+  steps.push({ balance: v.balance, supply: v.supply, attackerShares: 0n, victimShares: vShares, attackerOut });
+  const victimValue = vShares > 0n ? redeem(v, vShares) : 0n;
+  const lossPpm = depositWei > 0n ? ((depositWei - victimValue) * 1000000n) / depositWei : 0n;
+  return { reverted: false, steps, pre, victimShares: vShares, victimValue, attackerOut,
+           attackerProfit: attackerOut - (donationWei + 1n), victimLossPct: Number(lossPpm) / 10000 };
+}
+// ---- MODEL END ----
+
+const $ = (id) => document.getElementById(id);
+const NAMES = { naive: "Naive vault", revert: "Revert on zero shares", dead: "Dead shares", offset: "OpenZeppelin virtual shares", internal: "Internal accounting" };
+
+function fmtTokens(wei) {
+  const neg = wei < 0n; const a = neg ? -wei : wei;
+  let s;
+  if (a === 0n) s = "0";
+  else if (a < 10n ** 14n) s = a.toLocaleString("en-GB") + " wei";
+  else s = (Number(a) / 1e18).toLocaleString("en-GB", { maximumFractionDigits: a < 100n * E18 ? 4 : 2 });
+  return (neg ? "−" : "") + s;
+}
+function fmtSigned(wei) { return (wei > 0n ? "+" : "") + fmtTokens(wei); }
+function fmtShares(s) {
+  if (s >= 10n ** 15n) return (Number(s) / 1e18).toLocaleString("en-GB", { maximumFractionDigits: 3 }) + " × 10¹⁸";
+  return s.toLocaleString("en-GB");
+}
+function fmtPct(p) { return p === 0 ? "0%" : p < 0.0001 ? "< 0.0001%" : (p < 1 ? p.toLocaleString("en-GB", { maximumSignificantDigits: 3 }) : p.toLocaleString("en-GB", { maximumFractionDigits: 2 })) + "%"; }
+function ratioStr(num, den) {           // exact num/den to 4 decimal places, floored
+  const q = (num * 10000n) / den;
+  return (Number(q) / 10000).toLocaleString("en-GB", { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+}
+
+function state() {
+  return {
+    kind: document.querySelector('input[name="vault"]:checked').value,
+    offset: Number($("offset").value),
+    donation: BigInt($("donation").value) * E18,
+    deposit: BigInt($("deposit").value) * E18,
+  };
+}
+
+function render() {
+  const s = state();
+  $("offset-ctl").hidden = s.kind !== "offset";
+  $("offset-out").textContent = s.offset;
+  $("donation-out").textContent = Number($("donation").value).toLocaleString("en-GB") + " tokens";
+  $("deposit-out").textContent = Number($("deposit").value).toLocaleString("en-GB") + " tokens";
+  $("seed-legend").hidden = s.kind !== "dead";
+  const r = runAttack(s.kind, s.offset, s.donation, s.deposit);
+
+  // Verdict
+  const pill = $("verdict-pill"), text = $("verdict-text");
+  if (r.reverted) {
+    pill.className = "pill dos"; pill.textContent = "Deposit reverts";
+    text.textContent = "The deposit would mint 0 shares, so the vault refuses it. Nothing is stolen, but nobody can deposit less than one inflated share: theft becomes denial of service.";
+  } else if (r.attackerProfit > 0n) {
+    pill.className = "pill bad"; pill.textContent = "Attack profitable";
+    text.textContent = `The attacker walks away with ${fmtTokens(r.attackerProfit)} tokens of the victim's money.`;
+  } else if (r.victimLossPct >= 1) {
+    pill.className = "pill bad"; pill.textContent = "Victim still loses";
+    text.textContent = `The attacker loses money, but the victim still loses ${fmtPct(r.victimLossPct)} to rounding. This is griefing: it costs the attacker ${fmtTokens(-r.attackerProfit)} tokens to destroy value.`;
+  } else {
+    pill.className = "pill good"; pill.textContent = "Attack fails";
+    text.textContent = `The attacker loses ${fmtTokens(-r.attackerProfit)} tokens and the victim loses ${fmtPct(r.victimLossPct)}.`;
+  }
+
+  // Tiles
+  $("t-shares").textContent = r.reverted ? "reverts" : fmtShares(r.victimShares);
+  $("t-shares").className = "value" + (!r.reverted && r.victimShares === 0n ? " bad" : "");
+  $("t-shares-sub").textContent = r.reverted ? "require(shares != 0)" : "minted for the deposit";
+  $("t-back").textContent = r.reverted ? "n/a" : fmtTokens(r.victimValue);
+  $("t-back-sub").textContent = `of ${fmtTokens(s.deposit)} deposited`;
+  $("t-loss").textContent = r.reverted ? "0%" : fmtPct(r.victimLossPct);
+  $("t-loss").className = "value" + (!r.reverted && r.victimLossPct >= 1 ? " bad" : "");
+  $("t-loss-sub").textContent = r.reverted ? "deposit blocked" : "after both redeem";
+  $("t-profit").textContent = r.reverted ? "0" : fmtSigned(r.attackerProfit);
+  $("t-profit").className = "value" + (r.attackerProfit > 0n ? " bad" : "");
+  $("t-profit-sub").textContent = `paid ${fmtTokens(s.donation + 1n)} to set up`;
+
+  renderLedger(s, r);
+  renderSweep(s);
+}
+
+function renderLedger(s, r) {
+  const seed = s.kind === "dead" ? 1000n : 0n;
+  const full = seed + 1n + s.donation + s.deposit;          // largest balance the vault ever holds
+  const rows = [];
+  const st = r.steps;
+  const sharesLine = (x) => {
+    const ownersTotal = x.supply;
+    const pct = (n) => ownersTotal > 0n ? (Number((n * 10000n) / ownersTotal) / 100).toLocaleString("en-GB", { maximumFractionDigits: 2 }) + "%" : "0%";
+    let line = `supply ${fmtShares(x.supply)} ${x.supply === 1n ? "share" : "shares"} · attacker owns ${pct(x.attackerShares)}`;
+    if (x.victimShares > 0n || (x === st[2])) line += ` · victim owns ${pct(x.victimShares)}`;
+    if (seed > 0n) line += ` · dead ${pct(1000n)}`;
+    return line;
+  };
+  const segsFor = (attacker, victim) => [[seed, "seed"], [attacker, "attacker"], [victim, "victim"]];
+  const ozTerm = s.kind === "offset" || s.kind === "internal";
+
+  // Step 1
+  rows.push(step(1, false, "Attacker deposits 1 wei",
+    `<div class="formula">${ozTerm ? "1 wei × (supply + 10^" + (s.kind === "offset" ? s.offset : 0) + ") / (assets + 1)" : (seed ? "1 wei × 1,000 / 1,000 wei" : "empty vault mints 1:1")} → <b>${fmtShares(st[0].attackerShares)}</b> share${st[0].attackerShares === 1n ? "" : "s"}</div>`,
+    segsFor(1n, 0n), st[0].balance, full, sharesLine(st[0])));
+  // Step 2
+  rows.push(step(2, true, `Attacker donates ${fmtTokens(s.donation)} tokens`,
+    `<div class="formula">plain transfer(): ${s.kind === "internal" ? "<b>ignored</b> by totalAssets()" : "totalAssets() rises, <b>no shares minted</b>"}</div>`,
+    segsFor(1n + s.donation, 0n), st[1].balance, full, sharesLine(st[1])));
+  // Step 3
+  const p = r.pre;
+  let f3;
+  if (ozTerm) {
+    const vs = virtualShares(makeVault(s.kind, s.offset));
+    f3 = `${fmtTokens(s.deposit)} × (${fmtShares(p.supply)} + ${fmtShares(vs)}) / (${fmtTokens(p.assets)} + 1 wei) = ${ratioStr(s.deposit * (p.supply + vs), p.assets + 1n)}`;
+  } else {
+    f3 = `${fmtTokens(s.deposit)} × ${fmtShares(p.supply)} / ${fmtTokens(p.assets)} = ${ratioStr(s.deposit * p.supply, p.assets)}`;
+  }
+  const minted = r.reverted ? "reverts" : `${fmtShares(r.victimShares)} shares`;
+  rows.push(step(3, true, `Victim deposits ${fmtTokens(s.deposit)} tokens`,
+    `<div class="formula">${f3} → <b class="${!r.reverted && r.victimShares === 0n ? "bad" : ""}">${minted}</b></div>`,
+    r.reverted ? segsFor(1n + s.donation, 0n) : segsFor(1n + s.donation, s.deposit), r.reverted ? st[1].balance : st[2].balance, full,
+    r.reverted ? "deposit refused: the victim keeps their tokens, and so does every smaller depositor" : sharesLine(st[2])));
+  // Step 4
+  if (!r.reverted) {
+    const left = st[3].balance;
+    rows.push(step(4, false, "Attacker redeems their shares",
+      `<div class="formula">attacker receives <b class="${r.attackerProfit > 0n ? "bad" : ""}">${fmtTokens(r.attackerOut)}</b> · ${fmtTokens(left)} left for ${seed ? "the victim and the dead shares" : "the victim"}</div>`,
+      [[left, "victim"]], left, full, `victim then redeems ${fmtShares(r.victimShares)} ${r.victimShares === 1n ? "share" : "shares"} for ${fmtTokens(r.victimValue)}`));
+  }
+  $("ledger").innerHTML = rows.join("");
+}
+
+function step(n, alert, title, formula, segs, balance, full, owners) {
+  return `<div class="step"><div class="num ${alert ? "alert" : ""}">${n}</div><div class="step-body">
+    <div class="step-title">${title}</div>${formula}
+    <div class="bar-row">${barScaled(segs, full)}<span class="bar-value">${fmtTokens(balance)}</span></div>
+    <div class="owners">${owners}</div></div></div>`;
+}
+function barScaled(segs, full) {
+  const parts = segs.filter(([w]) => w > 0n).map(([w, cls]) => {
+    const pct = Math.max(Number((w * 100000n) / (full > 0n ? full : 1n)) / 1000, 0.5);
+    return `<div class="seg ${cls}" style="flex: 0 0 ${pct}%"></div>`;
+  });
+  return '<div class="bar">' + (parts.join("") || '<div class="seg" style="flex: 0 0 0.5%; background: var(--hairline)"></div>') + "</div>";
+}
+
+// ---- Sweep chart ----
+const W = 640, H = 270, PAD = { l: 46, r: 12, t: 14, b: 40 };
+let sweepCache = null;
+function sweepPoints(kind, offset, donation) {
+  const xs = [];
+  for (let d = 100; d <= 40000; d += 100) xs.push(BigInt(d) * E18);
+  if (donation > 0n) for (let k = 1n; k * donation <= 40000n * E18; k++) { xs.push(k * donation - 1n, k * donation + 1n, k * donation); }
+  xs.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+  return xs.filter((x) => x >= 100n * E18).map((x) => {
+    const r = runAttack(kind, offset, donation, x);
+    return { x: Number(x) / 1e18, y: r.reverted ? null : r.victimLossPct, reverted: r.reverted };
+  });
+}
+const px = (x) => PAD.l + ((W - PAD.l - PAD.r) * x) / 40000;
+const py = (y) => PAD.t + (H - PAD.t - PAD.b) * (1 - y / 100);
+function pathFor(pts) {
+  let d = "", pen = false;
+  for (const p of pts) {
+    if (p.y === null) { pen = false; continue; }
+    d += (pen ? "L" : "M") + px(p.x).toFixed(1) + "," + py(p.y).toFixed(1);
+    pen = true;
+  }
+  return d;
+}
+function renderSweep(s) {
+  const svg = $("sweep");
+  const pts = sweepPoints(s.kind, s.offset, s.donation);
+  const ref = s.kind === "naive" || s.kind === "revert" ? null : sweepPoints("naive", 0, s.donation);
+  sweepCache = { pts, s };
+  const hot = s.kind === "naive" || s.kind === "revert" || (s.kind === "offset" && s.offset === 0) ? "var(--orange)" : "var(--blue)";
+  $("sweep-swatch").style.background = hot;
+  $("sweep-name").textContent = NAMES[s.kind] + (s.kind === "offset" ? `, offset ${s.offset}` : "");
+  $("ref-legend").hidden = !ref;
+  const maxLoss = Math.max(0, ...pts.filter((p) => p.y !== null).map((p) => p.y));
+  const reverts = pts.filter((p) => p.reverted);
+  let note = `Victim's loss for every deposit from 100 to 40,000 tokens with a ${Number(s.donation / E18).toLocaleString("en-GB")} token donation. Worst case here: ${fmtPct(maxLoss)}.`;
+  if (reverts.length) note += ` Gaps are deposits the vault refuses (${reverts.length} of ${pts.length} sizes).`;
+  $("sweep-note").textContent = note;
+
+  let g = "";
+  for (const t of [0, 25, 50, 75, 100]) {
+    g += `<line x1="${PAD.l}" x2="${W - PAD.r}" y1="${py(t)}" y2="${py(t)}" stroke="var(--hairline)" stroke-width="${t === 0 ? 1.5 : 0.75}" ${t === 0 ? "" : 'stroke-dasharray="2 4"'}/>`;
+    g += `<text x="${PAD.l - 8}" y="${py(t) + 4}" text-anchor="end">${t}%</text>`;
+  }
+  for (const t of [0, 10000, 20000, 30000, 40000]) g += `<text x="${px(t)}" y="${H - PAD.b + 18}" text-anchor="middle">${t.toLocaleString("en-GB")}</text>`;
+  g += `<text x="${W - PAD.r}" y="${H - 4}" text-anchor="end">victim deposit (tokens)</text>`;
+  if (ref) g += `<path d="${pathFor(ref)}" fill="none" stroke="var(--baseline)" stroke-width="2" stroke-linejoin="round"/>`;
+  g += `<path d="${pathFor(pts)}" fill="none" stroke="${hot}" stroke-width="2.5" stroke-linejoin="round"/>`;
+  const cur = runAttack(s.kind, s.offset, s.donation, s.deposit);
+  const cx = px(Number(s.deposit / E18)), cy = py(cur.reverted ? 0 : cur.victimLossPct);
+  g += `<line x1="${cx}" x2="${cx}" y1="${PAD.t}" y2="${H - PAD.b}" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="3 3"/>`;
+  g += `<circle cx="${cx}" cy="${cy}" r="5" fill="var(--ink)" stroke="var(--surface)" stroke-width="2"/>`;
+  g += `<g id="hover" visibility="hidden"><line id="hx" y1="${PAD.t}" y2="${H - PAD.b}" stroke="var(--ink-3)" stroke-width="1"/><circle id="hc" r="4.5" fill="${hot}" stroke="var(--surface)" stroke-width="2"/></g>`;
+  g += `<rect x="${PAD.l}" y="${PAD.t}" width="${W - PAD.l - PAD.r}" height="${H - PAD.t - PAD.b}" fill="transparent" id="hit"/>`;
+  svg.innerHTML = `<title id="sweep-title">Victim loss by deposit size for ${$("sweep-name").textContent}</title>` + g;
+  $("hit").addEventListener("pointermove", hover);
+  $("hit").addEventListener("pointerleave", () => { $("hover").setAttribute("visibility", "hidden"); $("tip").hidden = true; });
+  $("hit").addEventListener("click", (e) => { const p = nearest(e); if (p) { $("deposit").value = Math.min(40000, Math.max(100, Math.round(p.x / 100) * 100)); render(); } });
+}
+function nearest(e) {
+  const svg = $("sweep"), box = svg.getBoundingClientRect();
+  const x = ((e.clientX - box.left) / box.width) * W;
+  const dep = ((x - PAD.l) / (W - PAD.l - PAD.r)) * 40000;
+  if (!sweepCache) return null;
+  let best = null, bd = Infinity;
+  for (const p of sweepCache.pts) { const d = Math.abs(p.x - dep); if (d < bd) { bd = d; best = p; } }
+  return best;
+}
+function hover(e) {
+  const p = nearest(e); if (!p) return;
+  const box = $("sweep").getBoundingClientRect(), k = box.width / W;
+  $("hover").setAttribute("visibility", "visible");
+  $("hx").setAttribute("x1", px(p.x)); $("hx").setAttribute("x2", px(p.x));
+  $("hc").setAttribute("cx", px(p.x)); $("hc").setAttribute("cy", py(p.y === null ? 0 : p.y));
+  const tip = $("tip");
+  tip.innerHTML = `deposit <b>${p.x.toLocaleString("en-GB", { maximumFractionDigits: 0 })}</b> · loss <b>${p.y === null ? "reverts" : fmtPct(p.y)}</b>`;
+  tip.hidden = false;
+  const left = Math.min(px(p.x) * k + 12, box.width - tip.offsetWidth - 4);
+  tip.style.left = Math.max(0, left) + "px";
+  tip.style.top = Math.max(0, py(p.y === null ? 0 : p.y) * k - 40) + "px";
+}
+
+for (const el of document.querySelectorAll("#controls input")) el.addEventListener("input", render);
+for (const b of document.querySelectorAll(".presets button")) b.addEventListener("click", () => { $("deposit").value = b.dataset.dep; render(); });
+render();
+</script>
+</body>
+</html>
