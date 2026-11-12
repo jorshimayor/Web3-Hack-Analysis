@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 398" width="720" height="398" role="img" aria-labelledby="t">
+<title id="t">Inflation attack money flow: the attacker's 1 wei and 10,000 token donation fill the vault, the victim's 9,000 tokens mint 0 shares, and the attacker's single share redeems all 19,000 tokens</title>
+<rect width="720" height="398" rx="12" fill="#fcfcfb"/>
+<text x="24" y="34" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#0b0b0b" xml:space="preserve">Where the victim's 9,000 tokens go</text>
+<rect x="24" y="51" width="12" height="12" rx="2" fill="#eb6834" fill-opacity="1"/>
+<text x="42" y="62" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">attacker's tokens</text>
+<rect x="176" y="51" width="12" height="12" rx="2" fill="#2a78d6" fill-opacity="1"/>
+<text x="194.2" y="62" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">victim's tokens</text>
+<circle cx="35" cy="97" r="11" fill="#2a78d6" fill-opacity="1"/>
+<text x="35" y="102" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#fcfcfb" xml:space="preserve">1</text>
+<text x="56" y="102" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Attacker deposits 1 wei</text>
+<text x="56" y="121" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#52514e" xml:space="preserve">mints 1 share: the attacker owns 100%</text>
+<rect x="372" y="86" width="3" height="22" rx="0" fill="#eb6834" fill-opacity="1"/>
+<text x="383" y="102" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" xml:space="preserve">1 wei</text>
+<circle cx="35" cy="159" r="11" fill="#eb6834" fill-opacity="1"/>
+<text x="35" y="164" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#fcfcfb" xml:space="preserve">2</text>
+<text x="56" y="164" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Attacker donates 10,000 tokens</text>
+<text x="56" y="183" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#52514e" xml:space="preserve">plain transfer(), so no new shares</text>
+<rect x="372" y="148" width="137" height="22" rx="0" fill="#eb6834" fill-opacity="1"/>
+<text x="516.8421052631579" y="164" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" xml:space="preserve">10,000</text>
+<circle cx="35" cy="221" r="11" fill="#eb6834" fill-opacity="1"/>
+<text x="35" y="226" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#fcfcfb" xml:space="preserve">3</text>
+<text x="56" y="226" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Victim deposits 9,000 tokens</text>
+<text x="56" y="245" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="normal" fill="#52514e" xml:space="preserve">9,000 × 1 / 10,000 = 0.8999 → 0 shares</text>
+<rect x="372" y="210" width="137" height="22" rx="0" fill="#eb6834" fill-opacity="1"/>
+<rect x="511" y="210" width="123" height="22" rx="0" fill="#2a78d6" fill-opacity="1"/>
+<text x="642.0" y="226" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" xml:space="preserve">19,000</text>
+<circle cx="35" cy="283" r="11" fill="#2a78d6" fill-opacity="1"/>
+<text x="35" y="288" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#fcfcfb" xml:space="preserve">4</text>
+<text x="56" y="288" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#0b0b0b" xml:space="preserve">Attacker redeems their 1 share</text>
+<text x="56" y="307" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#52514e" xml:space="preserve">1 share still owns the whole vault</text>
+<rect x="372" y="272" width="137" height="22" rx="0" fill="#eb6834" fill-opacity="1"/>
+<rect x="511" y="272" width="123" height="22" rx="0" fill="#2a78d6" fill-opacity="1"/>
+<text x="642.0" y="288" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" xml:space="preserve">19,000 out</text>
+<text x="372" y="312" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#eb6834" xml:space="preserve">paid to the attacker. Victim redeems nothing.</text>
+<line x1="371" y1="80" x2="371" y2="316" stroke="#d9d8d3" stroke-width="1"/>
+<text x="372" y="74" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">tokens in the vault</text>
+<text x="24" y="340" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">No shares are minted for the donation, so the attacker's one share owns everything the victim adds.</text>
+<text x="24" y="358" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Attack: 1 wei deposit, 10,000 token donation, 9,000 token victim deposit.</text>
+<text x="24" y="374" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Foundry 1.9.0, OpenZeppelin Contracts 5.4.0, Web3-Hack-Analysis test suite.</text>
+</svg>

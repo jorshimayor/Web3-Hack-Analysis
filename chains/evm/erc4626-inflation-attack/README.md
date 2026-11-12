@@ -55,9 +55,11 @@ forge test -vv
 
 Change `DONATION` and `VICTIM_DEPOSIT` in `test/helpers/AttackBase.sol` to your own vault's expected sizes.
 
+![Where the victim's 9,000 tokens go: the attacker's single share redeems all 19,000](illustrations/attack/vault-flow.svg)
+
 ![attack flow](illustrations/attack/attack-flow.svg)
 
-## Results (Foundry 1.5.1, solc 0.8.25, OpenZeppelin Contracts 5.4.0)
+## Results (Foundry 1.9.0, solc 0.8.25, OpenZeppelin Contracts 5.4.0)
 
 | Vault | Victim shares | Victim gets back | Attacker profit |
 |---|---|---|---|
@@ -71,6 +73,16 @@ Change `DONATION` and `VICTIM_DEPOSIT` in `test/helpers/AttackBase.sol` to your 
 | Internal accounting | 9,000 × 10^18 | 9,000 | −10,000 |
 
 ![test results](illustrations/defences/test-results.svg)
+
+### Every deposit size, not just 9,000
+
+The tests fix the deposit at 9,000 and 15,000 tokens. Sweeping it from 100 to 40,000 tokens (same 10,000 token donation) with an exact integer model of these vaults, which reproduces every result in the table above, shows what the two test points can't:
+
+- The naive vault loses **100% of any deposit up to 10,000 tokens**, then follows a sawtooth: exactly 0% at 10,000 tokens plus 1 wei, back up to 25% just under 20,000.
+- **OpenZeppelin with the default offset 0 still loses everything below 5,000 tokens**, and up to 33% below 10,000. The 29.6% at 9,000 is one point on that curve.
+- Dead shares, offset 6 and internal accounting **never pass 0.1%** across the whole range.
+
+![Victim loss by deposit size for each vault](illustrations/defences/loss-sweep.svg)
 
 ## The defences (test/defences)
 
@@ -95,6 +107,17 @@ Each test replicates the vulnerability class on a mock, not the real contract. A
 
 ![timeline](illustrations/incidents/incidents-timeline.svg)
 
+## Interactive simulator
+
+[`illustrations/interactive/inflation-simulator.html`](illustrations/interactive/inflation-simulator.html) is a single self-contained page: pick a vault, set the donation and the victim's deposit, and watch the four-step ledger, the share formula with live numbers, and the loss across every deposit size update together. It uses the same exact BigInt arithmetic and reproduces the Foundry results above. Download it and open it in a browser (GitHub shows HTML files as source).
+
 ## Rebuilding the illustrations
 
 The figures are generated from the writing-studio illustration design system (`design/examples/erc4626_figures.py` in that repo). SVG is the source; `png/` folders hold 2× exports.
+
+The deposit sweep comes from `design/examples/erc4626_model.py`, an exact integer model of the vaults in `src/`. Run it on its own to check it still reproduces the Foundry results before regenerating:
+
+```bash
+python3 design/examples/erc4626_model.py      # exits non-zero on any mismatch
+python3 design/examples/erc4626_figures.py <out-dir>
+```

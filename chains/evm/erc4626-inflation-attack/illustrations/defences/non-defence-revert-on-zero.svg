@@ -14,5 +14,5 @@
 <text x="24" y="198" text-anchor="start" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="normal" fill="#eb6834" xml:space="preserve">→ Small deposits are blocked. Large ones still lose 2,500.</text>
 <text x="24" y="246" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">Below the inflated share price every deposit reverts: theft becomes denial of service.</text>
 <text x="24" y="264" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">Above it the check passes and the partial loss goes through.</text>
-<text x="24" y="282" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Foundry 1.5.1, OpenZeppelin Contracts 5.4.0, from the erc4626-inflation-lab test suite.</text>
+<text x="24" y="282" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Foundry 1.9.0, OpenZeppelin Contracts 5.4.0, Web3-Hack-Analysis test suite.</text>
 </svg>

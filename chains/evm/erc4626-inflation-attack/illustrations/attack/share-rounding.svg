@@ -29,5 +29,5 @@
 <text x="560.0" y="338" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">paid 15,000</text>
 <line x1="190" y1="286" x2="190" y2="354" stroke="#d9d8d3" stroke-width="1.5"/>
 <text x="24" y="376" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">Victim paid 15,000, holds 12,500. Attacker paid 10,000 and 1 wei, holds 12,500. Rounding moved 2,500.</text>
-<text x="24" y="394" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Foundry 1.5.1, OpenZeppelin Contracts 5.4.0, from the erc4626-inflation-lab test suite.</text>
+<text x="24" y="394" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Foundry 1.9.0, OpenZeppelin Contracts 5.4.0, Web3-Hack-Analysis test suite.</text>
 </svg>

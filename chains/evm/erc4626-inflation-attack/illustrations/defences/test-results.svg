@@ -30,5 +30,5 @@
 <line x1="200" y1="60" x2="200" y2="224" stroke="#d9d8d3" stroke-width="1.5"/>
 <text x="24" y="246" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#52514e" xml:space="preserve">Only the naive vault pays the attacker. OpenZeppelin's default offset still costs the victim 29.6%.</text>
 <text x="24" y="264" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Attack: 1 wei deposit, 10,000 token donation, 9,000 token victim deposit. Attacker figures are profit in tokens.</text>
-<text x="24" y="280" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Foundry 1.5.1, OpenZeppelin Contracts 5.4.0, from the erc4626-inflation-lab test suite.</text>
+<text x="24" y="280" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" fill="#8a8984" xml:space="preserve">Foundry 1.9.0, OpenZeppelin Contracts 5.4.0, Web3-Hack-Analysis test suite.</text>
 </svg>
